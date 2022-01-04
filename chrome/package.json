@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "vite build",
-    "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx ."
+    "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
+    "fmt": "prettier --write . && yarn run lint --fix"
   },
   "dependencies": {
     "react": "^17.0.2",
