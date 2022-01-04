@@ -10,4 +10,4 @@ const App: React.VFC = React.memo(() => {
 
 App.displayName = 'App';
 
-export default App
+export default App;

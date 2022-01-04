@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 const Popup: React.VFC = React.memo(() => {
   const handleClickOpenApp = useCallback(() => {
-    const url = chrome.runtime.getURL("app.html");
+    const url = chrome.runtime.getURL('app.html');
     chrome.tabs.create({ url });
   }, []);
 
