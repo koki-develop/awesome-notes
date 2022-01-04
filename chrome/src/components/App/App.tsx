@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 const App: React.VFC = React.memo(() => {
+  const [text, setText] = useState<string>('');
+
+  const handleChangeText = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setText(e.currentTarget.value);
+    },
+    [],
+  );
+
+  const handleClickSave = useCallback(async () => {
+    console.info('Saved:', text);
+  }, [text]);
+
   return (
     <div>
-      <h1>Application</h1>
+      <TextField multiline value={text} onChange={handleChangeText} />
+      <Button onClick={handleClickSave}>Save</Button>
     </div>
   );
 });
