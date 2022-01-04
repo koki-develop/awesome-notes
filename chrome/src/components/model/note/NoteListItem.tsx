@@ -1,4 +1,9 @@
 import React, { useCallback } from 'react';
+import IconButton from '@mui/material/IconButton';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useDeleteNote } from '../../../hooks/noteHooks';
 import { Note } from '../../../models/note';
 
@@ -24,16 +29,18 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
   }, [deleteNote, note.id]);
 
   return (
-    <li>
-      <span
-        onClick={handleClickItem}
-        style={{ fontWeight: selected ? 'bold' : undefined }}
-      >
-        {note.body.slice(0, 10)}
-        {note.body.length > 10 ? '...' : null}
-      </span>
-      <button onClick={handleClickDelete}>delete</button>
-    </li>
+    <ListItem
+      disablePadding
+      secondaryAction={
+        <IconButton onClick={handleClickDelete}>
+          <DeleteIcon />
+        </IconButton>
+      }
+    >
+      <ListItemButton selected={selected} onClick={handleClickItem}>
+        <ListItemText primary={note.body} />
+      </ListItemButton>
+    </ListItem>
   );
 });
 

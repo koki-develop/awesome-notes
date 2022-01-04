@@ -1,4 +1,9 @@
 import React, { useCallback } from 'react';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import { useNotes } from '../../../hooks/noteHooks';
 import { Note } from '../../../models/note';
 import { useCreateNote } from '../../../hooks/noteHooks';
@@ -23,19 +28,24 @@ const NoteList: React.VFC<NoteListProps> = React.memo(props => {
   }, [createNote, onSelect]);
 
   return (
-    <ul>
+    <List disablePadding>
+      <ListItem disablePadding>
+        <ListItemButton onClick={handleClickNew}>
+          <ListItemText primary='New Note' />
+        </ListItemButton>
+      </ListItem>
+      <Divider />
       {notes.map(note => (
-        <NoteListItem
-          key={note.id}
-          note={note}
-          selected={selectedId === note.id}
-          onSelect={onSelect}
-        />
+        <React.Fragment key={note.id}>
+          <NoteListItem
+            note={note}
+            selected={selectedId === note.id}
+            onSelect={onSelect}
+          />
+          <Divider />
+        </React.Fragment>
       ))}
-      <li>
-        <button onClick={handleClickNew}>New</button>
-      </li>
-    </ul>
+    </List>
   );
 });
 
