@@ -6,27 +6,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import AddIcon from '@mui/icons-material/Add';
 import { useNotes } from '../../../hooks/noteHooks';
-import { Note } from '../../../models/note';
-import { useCreateNote } from '../../../hooks/noteHooks';
+import { useCreateNote, useSelectNote } from '../../../hooks/noteHooks';
 import NoteListItem from './NoteListItem';
 
-export type NoteListProps = {
-  selectedId: number | null;
-
-  onSelect: (note: Note) => void;
-};
-
-const NoteList: React.VFC<NoteListProps> = React.memo(props => {
-  const { selectedId, onSelect } = props;
-
+const NoteList: React.VFC = React.memo(() => {
   const notes = useNotes();
+
+  const { selectNote } = useSelectNote();
   const { createNote } = useCreateNote();
 
   const handleClickNew = useCallback(() => {
     createNote({ body: '' }).then(note => {
-      onSelect(note);
+      selectNote(note);
     });
-  }, [createNote, onSelect]);
+  }, [createNote, selectNote]);
 
   return (
     <List disablePadding>
@@ -39,11 +32,7 @@ const NoteList: React.VFC<NoteListProps> = React.memo(props => {
       <Divider />
       {notes.map(note => (
         <React.Fragment key={note.id}>
-          <NoteListItem
-            note={note}
-            selected={selectedId === note.id}
-            onSelect={onSelect}
-          />
+          <NoteListItem note={note} />
           <Divider />
         </React.Fragment>
       ))}

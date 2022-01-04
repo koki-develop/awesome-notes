@@ -1,5 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { selectedNoteIdState } from '../recoil/atoms';
+import { LocalStorage } from '../lib/localStorage';
 import { db } from '../lib/db';
 import { Note } from '../models/note';
 
@@ -10,12 +13,39 @@ export const useNotes = (): Note[] => {
   return notes ?? [];
 };
 
+// deprecated
 export const useNote = (id: number | null): Note | null => {
   const note = useLiveQuery(() => {
     if (id == null) return undefined;
     return db.notes.get(id);
   }, [id]);
   return note ?? null;
+};
+
+export const useSelectedNote = (): Note | null => {
+  const selectedNoteId = useRecoilValue(selectedNoteIdState);
+
+  const note = useLiveQuery(() => {
+    if (selectedNoteId == null) return undefined;
+    return db.notes.get(selectedNoteId);
+  }, [selectedNoteId]);
+
+  return note ?? null;
+};
+
+export const useSelectNote = () => {
+  const setSelectedNoteId = useSetRecoilState(selectedNoteIdState);
+
+  const selectNote = useCallback(
+    (note: Note) => {
+      const id = note.id ?? null;
+      setSelectedNoteId(id);
+      LocalStorage.setSelectedNoteId(id);
+    },
+    [setSelectedNoteId],
+  );
+
+  return { selectNote };
 };
 
 export const useCreateNote = () => {
