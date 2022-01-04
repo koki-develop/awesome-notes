@@ -13,7 +13,6 @@ export const useNotes = (): Note[] => {
   return notes ?? [];
 };
 
-// deprecated
 export const useNote = (id: number | null): Note | null => {
   const note = useLiveQuery(() => {
     if (id == null) return undefined;
@@ -24,13 +23,7 @@ export const useNote = (id: number | null): Note | null => {
 
 export const useSelectedNote = (): Note | null => {
   const selectedNoteId = useRecoilValue(selectedNoteIdState);
-
-  const note = useLiveQuery(() => {
-    if (selectedNoteId == null) return undefined;
-    return db.notes.get(selectedNoteId);
-  }, [selectedNoteId]);
-
-  return note ?? null;
+  return useNote(selectedNoteId);
 };
 
 export const useSelectNote = () => {
