@@ -1,25 +1,35 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { LocalStorage } from '../../lib/localStorage';
+import NoteList from '../model/note/NoteList';
+import NoteEditor from '../model/note/NoteEditor';
+import { Note } from '../../models/note';
 
 const App: React.VFC = React.memo(() => {
-  const [text, setText] = useState<string>('');
-
-  const handleChangeText = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setText(e.currentTarget.value);
-    },
-    [],
+  const [selectedNoteId, setSelectedNoteId] = useState<number | null>(
+    LocalStorage.getSelectedNoteId(),
   );
 
-  const handleClickSave = useCallback(async () => {
-    console.info('Saved:', text);
-  }, [text]);
+  const handleCreatedNote = useCallback((note: Note) => {
+    console.log('created:', note);
+    setSelectedNoteId(note.id || null);
+  }, []);
+
+  const handleSelectNote = useCallback((note: Note) => {
+    setSelectedNoteId(note.id || null);
+  }, []);
+
+  useEffect(() => {
+    LocalStorage.setSelectedNoteId(selectedNoteId);
+  }, [selectedNoteId]);
 
   return (
     <div>
-      <TextField multiline value={text} onChange={handleChangeText} />
-      <Button onClick={handleClickSave}>Save</Button>
+      <div>
+        <NoteList selectedId={selectedNoteId} onSelect={handleSelectNote} />
+      </div>
+      <div>
+        <NoteEditor id={selectedNoteId} onCreated={handleCreatedNote} />
+      </div>
     </div>
   );
 });

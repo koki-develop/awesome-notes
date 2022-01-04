@@ -1,17 +1,20 @@
 import { useCallback, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../models/db';
+import { db } from '../lib/db';
 import { Note } from '../models/note';
 
 export const useNotes = (): Note[] => {
   const notes = useLiveQuery(
-    () => db.notes.orderBy('updatedAt').toArray() ?? [],
+    () => db.notes.orderBy('updatedAt').reverse().toArray() ?? [],
   );
   return notes ?? [];
 };
 
-export const useNote = (id: number): Note | null => {
-  const note = useLiveQuery(() => db.notes.get(id), [id]);
+export const useNote = (id: number | null): Note | null => {
+  const note = useLiveQuery(() => {
+    if (id == null) return undefined;
+    return db.notes.get(id);
+  }, [id]);
   return note ?? null;
 };
 
@@ -21,8 +24,12 @@ export const useCreateNote = () => {
   const createNote = useCallback((params: Pick<Note, 'body'>) => {
     setLoading(true);
     const now = new Date();
+    const newNote = { ...params, createdAt: now, updatedAt: now };
     return db.notes
-      .add({ ...params, createdAt: now, updatedAt: now })
+      .add(newNote)
+      .then(id => {
+        return { id, ...newNote } as Note;
+      })
       .finally(() => {
         setLoading(false);
       });
