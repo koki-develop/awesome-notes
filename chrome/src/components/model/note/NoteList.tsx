@@ -4,6 +4,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import AddIcon from '@mui/icons-material/Add';
 import { useNotes } from '../../../hooks/noteHooks';
 import { Note } from '../../../models/note';
 import { useCreateNote } from '../../../hooks/noteHooks';
@@ -31,6 +32,7 @@ const NoteList: React.VFC<NoteListProps> = React.memo(props => {
     <List disablePadding>
       <ListItem disablePadding>
         <ListItemButton onClick={handleClickNew}>
+          <AddIcon />
           <ListItemText primary='New Note' />
         </ListItemButton>
       </ListItem>
