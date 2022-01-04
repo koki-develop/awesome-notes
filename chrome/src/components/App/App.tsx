@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { RecoilRoot } from 'recoil';
 import { LocalStorage } from '../../lib/localStorage';
 import NoteList from '../model/note/NoteList';
 import NoteEditor from '../model/note/NoteEditor';
@@ -23,14 +24,16 @@ const App: React.VFC = React.memo(() => {
   }, [selectedNoteId]);
 
   return (
-    <div>
+    <RecoilRoot>
       <div>
-        <NoteList selectedId={selectedNoteId} onSelect={handleSelectNote} />
+        <div>
+          <NoteList selectedId={selectedNoteId} onSelect={handleSelectNote} />
+        </div>
+        <div>
+          <NoteEditor id={selectedNoteId} onCreated={handleCreatedNote} />
+        </div>
       </div>
-      <div>
-        <NoteEditor id={selectedNoteId} onCreated={handleCreatedNote} />
-      </div>
-    </div>
+    </RecoilRoot>
   );
 });
 
