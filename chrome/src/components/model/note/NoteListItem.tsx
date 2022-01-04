@@ -44,8 +44,21 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
         </IconButton>
       }
     >
-      <ListItemButton selected={selected} onClick={handleClickItem}>
-        <ListItemText primary={note.body} />
+      <ListItemButton
+        selected={selected}
+        onClick={handleClickItem}
+        sx={{ overflow: 'hidden' }}
+      >
+        <ListItemText
+          primary={note.body}
+          primaryTypographyProps={{
+            sx: {
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            },
+          }}
+        />
       </ListItemButton>
     </ListItem>
   );

@@ -22,7 +22,7 @@ const NoteList: React.VFC = React.memo(() => {
   }, [createNote, selectNote]);
 
   return (
-    <List disablePadding>
+    <List disablePadding sx={{ width: 240 }}>
       <ListItem disablePadding>
         <ListItemButton onClick={handleClickNew}>
           <AddIcon />
