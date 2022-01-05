@@ -33,10 +33,9 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   useEffect(() => {
     if (!editor) return;
     if (editing) return;
-    if (editor.getHTML() !== note.body) {
-      setBody(note.body);
-      editor.chain().setContent(note.body).focus().run();
-    }
+    if (editor.getHTML() === note.body) return;
+    setBody(note.body);
+    editor.chain().setContent(note.body).focus().run();
   }, [editing, editor, note]);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     const timeoutId = setTimeout(() => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       updateNote(note.id!, { body });
-    }, 500);
+    }, 100);
     return () => clearTimeout(timeoutId);
   }, [body, note, updateNote]);
 
