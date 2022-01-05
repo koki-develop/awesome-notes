@@ -1,0 +1,10 @@
+.note-editor {
+    height: 100%;
+    overflow-y: auto;
+
+    .ProseMirror {
+        outline: none;
+        min-height: 100%;
+        padding: 12px;
+    }
+}

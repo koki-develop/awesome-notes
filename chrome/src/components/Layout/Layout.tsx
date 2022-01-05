@@ -8,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import NoteListDrawer from '../model/note/NoteListDrawer';
 
+const headerHeight = 64;
 const drawerWidth = 240;
 
 type AppBarProps = MuiAppBarProps & {
@@ -17,6 +18,7 @@ type AppBarProps = MuiAppBarProps & {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
+  height: headerHeight,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -36,7 +38,7 @@ type MainProps = { open: boolean };
 const Main = styled('main', {
   shouldForwardProp: prop => prop !== 'open',
 })<MainProps>(({ theme, open }) => ({
-  padding: theme.spacing(1),
+  height: `calc(100% - ${headerHeight}px)`,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -81,7 +83,7 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ height: '100vh' }}>
       {/* header */}
       <AppBar position='static' open={openDrawer}>
         <Toolbar>

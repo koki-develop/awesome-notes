@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Button from '@mui/material/Button';
 import {
   useCreateNote,
   useUpdateNote,
   useSelectNote,
   useSelectedNote,
 } from '../../../hooks/noteHooks';
+import './NoteEditor.scss';
 
 const NoteEditor: React.VFC = React.memo(() => {
   const editor = useEditor({
@@ -44,12 +44,7 @@ const NoteEditor: React.VFC = React.memo(() => {
     }
   }, [editor, note]);
 
-  return (
-    <div>
-      <EditorContent editor={editor} />
-      <Button onClick={handleClickSave}>Save</Button>
-    </div>
-  );
+  return <EditorContent className='note-editor' editor={editor} />;
 });
 
 NoteEditor.displayName = 'NoteEditor';

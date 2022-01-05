@@ -7,9 +7,7 @@ const App: React.VFC = React.memo(() => {
   return (
     <RecoilRoot>
       <Layout>
-        <div>
-          <NoteEditor />
-        </div>
+        <NoteEditor />
       </Layout>
     </RecoilRoot>
   );
