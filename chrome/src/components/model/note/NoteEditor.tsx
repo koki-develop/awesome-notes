@@ -1,48 +1,44 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import {
-  useCreateNote,
-  useUpdateNote,
-  useSelectNote,
-  useSelectedNote,
-} from '../../../hooks/noteHooks';
+import { useUpdateNote } from '../../../hooks/noteHooks';
 import './NoteEditor.scss';
+import { Note } from '../../../models/note';
 
-const NoteEditor: React.VFC = React.memo(() => {
+export type NoteEditorProps = {
+  note: Note;
+};
+
+const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
+  const { note } = props;
+  const [body, setBody] = useState<string>(note.body);
+
   const editor = useEditor({
     extensions: [StarterKit],
-    content: '',
+    content: body,
+    onUpdate: ({ editor }) => {
+      setBody(editor.getHTML());
+    },
   });
 
-  const note = useSelectedNote();
-
-  const { createNote } = useCreateNote();
   const { updateNote } = useUpdateNote();
-  const { selectNote } = useSelectNote();
-
-  const handleClickSave = useCallback(() => {
-    if (!editor) return;
-
-    if (note == null) {
-      // new
-      createNote({ body: editor.getHTML() }).then(note => {
-        selectNote(note);
-      });
-    } else {
-      // edit
-      if (!note.id) return;
-      updateNote(note.id, { body: editor.getHTML() });
-    }
-  }, [createNote, editor, note, selectNote, updateNote]);
 
   useEffect(() => {
     if (!editor) return;
-    if (!note) return;
     if (editor.getHTML() !== note.body) {
-      editor.commands.setContent(note.body);
+      setBody(note.body);
+      editor.chain().setContent(note.body).focus().run();
     }
   }, [editor, note]);
+
+  useEffect(() => {
+    if (note.body === body) return;
+    const timeoutId = setTimeout(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      updateNote(note.id!, { body });
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [body, note, updateNote]);
 
   return <EditorContent className='note-editor' editor={editor} />;
 });

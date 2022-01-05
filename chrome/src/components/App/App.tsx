@@ -1,14 +1,13 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+import { useSelectedNote } from '../../hooks/noteHooks';
 import Layout from '../Layout';
 import NoteEditor from '../model/note/NoteEditor';
 
 const App: React.VFC = React.memo(() => {
   return (
     <RecoilRoot>
-      <Layout>
-        <NoteEditor />
-      </Layout>
+      <AppContent />
     </RecoilRoot>
   );
 });
@@ -16,3 +15,11 @@ const App: React.VFC = React.memo(() => {
 App.displayName = 'App';
 
 export default App;
+
+const AppContent: React.VFC = React.memo(() => {
+  const note = useSelectedNote();
+
+  return <Layout>{note && <NoteEditor note={note} />}</Layout>;
+});
+
+AppContent.displayName = 'AppContent';
