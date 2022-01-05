@@ -16,7 +16,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const editor = useEditor({
     extensions: [StarterKit],
     content: body,
-    onUpdate: ({ editor }) => {
+    onUpdate({ editor }) {
       setBody(editor.getHTML());
     },
   });
