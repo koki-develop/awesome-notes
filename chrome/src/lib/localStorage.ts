@@ -1,5 +1,6 @@
 const localStorageKeys = {
   selectedNoteId: 'SELECTED_NOTE_ID',
+  openDrawer: 'OPEN_DRAWER',
 };
 
 export class LocalStorage {
@@ -13,15 +14,24 @@ export class LocalStorage {
     return id;
   }
 
-  public static setSelectedNoteId(id: number | null) {
+  public static setSelectedNoteId(id: number | null): void {
     if (id == null) {
-      this.removeSelectedNoteId();
+      this._removeSelectedNoteId();
     } else {
       localStorage.setItem(localStorageKeys.selectedNoteId, id.toString());
     }
   }
 
-  public static removeSelectedNoteId() {
+  public static getOpenDrawer(): boolean {
+    const value = localStorage.getItem(localStorageKeys.openDrawer);
+    return value === 'true';
+  }
+
+  public static setOpenDrawer(value: boolean): void {
+    localStorage.setItem(localStorageKeys.openDrawer, JSON.stringify(value));
+  }
+
+  private static _removeSelectedNoteId(): void {
     localStorage.removeItem(localStorageKeys.selectedNoteId);
   }
 }

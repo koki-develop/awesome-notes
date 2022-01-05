@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
+import { LocalStorage } from '../../lib/localStorage';
 import NoteListDrawer from '../model/note/NoteListDrawer';
 
 const headerHeight = 64;
@@ -72,7 +73,9 @@ export default Layout;
 
 const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const { children } = props;
-  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
+  const [openDrawer, setOpenDrawer] = useState<boolean>(
+    LocalStorage.getOpenDrawer(),
+  );
 
   const handleClickMenu = useCallback(() => {
     setOpenDrawer(true);
@@ -81,6 +84,10 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const handleCloseDrawer = useCallback(() => {
     setOpenDrawer(false);
   }, []);
+
+  useEffect(() => {
+    LocalStorage.setOpenDrawer(openDrawer);
+  }, [openDrawer]);
 
   return (
     <Box sx={{ height: '100vh' }}>
