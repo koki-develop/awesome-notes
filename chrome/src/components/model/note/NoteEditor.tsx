@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import {
   useCreateNote,
   useUpdateNote,
@@ -9,7 +10,10 @@ import {
 } from '../../../hooks/noteHooks';
 
 const NoteEditor: React.VFC = React.memo(() => {
-  const [body, setBody] = useState<string>('');
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: '',
+  });
 
   const note = useSelectedNote();
 
@@ -17,33 +21,32 @@ const NoteEditor: React.VFC = React.memo(() => {
   const { updateNote } = useUpdateNote();
   const { selectNote } = useSelectNote();
 
-  const handleChangeText = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setBody(e.currentTarget.value);
-    },
-    [],
-  );
-
   const handleClickSave = useCallback(() => {
+    if (!editor) return;
+
     if (note == null) {
       // new
-      createNote({ body }).then(note => {
+      createNote({ body: editor.getHTML() }).then(note => {
         selectNote(note);
       });
     } else {
       // edit
       if (!note.id) return;
-      updateNote(note.id, { body });
+      updateNote(note.id, { body: editor.getHTML() });
     }
-  }, [body, createNote, note, selectNote, updateNote]);
+  }, [createNote, editor, note, selectNote, updateNote]);
 
   useEffect(() => {
-    setBody(note?.body ?? '');
-  }, [note?.body]);
+    if (!editor) return;
+    if (!note) return;
+    if (editor.getHTML() !== note.body) {
+      editor.commands.setContent(note.body);
+    }
+  }, [editor, note]);
 
   return (
     <div>
-      <TextField multiline value={body} onChange={handleChangeText} />
+      <EditorContent editor={editor} />
       <Button onClick={handleClickSave}>Save</Button>
     </div>
   );
