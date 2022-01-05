@@ -13,11 +13,13 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const { note } = props;
   const [body, setBody] = useState<string>(note.body);
   const [editing, setEditing] = useState<boolean>(false);
+  const [inputting, setInputting] = useState<boolean>(false);
 
   const editor = useEditor({
     extensions: [StarterKit],
     content: body,
     onUpdate({ editor }) {
+      setInputting(true);
       setBody(editor.getHTML());
     },
     onFocus() {
@@ -30,6 +32,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
 
   const { updateNote } = useUpdateNote();
 
+  // ノートを選択時
   useEffect(() => {
     if (!editor) return;
     if (editing) return;
@@ -38,14 +41,22 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     editor.chain().setContent(note.body).focus().run();
   }, [editing, editor, note]);
 
+  // 入力時
   useEffect(() => {
-    if (note.body === body) return;
+    if (!inputting) return;
     const timeoutId = setTimeout(() => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      updateNote(note.id!, { body });
-    }, 100);
+      setInputting(false);
+    }, 500);
     return () => clearTimeout(timeoutId);
-  }, [body, note, updateNote]);
+  }, [inputting]);
+
+  // 内容更新時
+  useEffect(() => {
+    if (!inputting) return;
+    if (note.body === body) return;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    updateNote(note.id!, { body });
+  }, [body, inputting, note.body, note.id, updateNote]);
 
   return <EditorContent className='note-editor' editor={editor} />;
 });
