@@ -13,13 +13,11 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const { note } = props;
   const [body, setBody] = useState<string>(note.body);
   const [editing, setEditing] = useState<boolean>(false);
-  const [inputting, setInputting] = useState<boolean>(false);
 
   const editor = useEditor({
     extensions: [StarterKit],
     content: body,
     onUpdate({ editor }) {
-      setInputting(true);
       setBody(editor.getHTML());
     },
     onFocus() {
@@ -41,22 +39,13 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     editor.chain().setContent(note.body).focus().run();
   }, [editing, editor, note]);
 
-  // 入力時
-  useEffect(() => {
-    if (!inputting) return;
-    const timeoutId = setTimeout(() => {
-      setInputting(false);
-    }, 500);
-    return () => clearTimeout(timeoutId);
-  }, [inputting]);
-
   // 内容更新時
   useEffect(() => {
-    if (!inputting) return;
     if (note.body === body) return;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    updateNote(note.id!, { body });
-  }, [body, inputting, note.body, note.id, updateNote]);
+    if (!note.id) return;
+    updateNote(note.id, { body });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [body, updateNote]);
 
   return <EditorContent className='note-editor' editor={editor} />;
 });
