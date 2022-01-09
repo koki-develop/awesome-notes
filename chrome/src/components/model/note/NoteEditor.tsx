@@ -12,19 +12,12 @@ export type NoteEditorProps = {
 const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const { note } = props;
   const [body, setBody] = useState<string>(note.body);
-  const [editing, setEditing] = useState<boolean>(false);
 
   const editor = useEditor({
     extensions: [StarterKit],
     content: body,
     onUpdate({ editor }) {
       setBody(editor.getHTML());
-    },
-    onFocus() {
-      setEditing(true);
-    },
-    onBlur() {
-      setEditing(false);
     },
   });
 
@@ -33,11 +26,10 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   // ノートを選択時
   useEffect(() => {
     if (!editor) return;
-    if (editing) return;
     if (editor.getHTML() === note.body) return;
     setBody(note.body);
     editor.chain().setContent(note.body).focus().run();
-  }, [editing, editor, note]);
+  }, [editor, note]);
 
   // 内容更新時
   useEffect(() => {
