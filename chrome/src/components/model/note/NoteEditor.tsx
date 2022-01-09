@@ -32,7 +32,8 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     if (editor.getHTML() === note.body) return;
     setBody(note.body);
     editor.chain().setContent(note.body).focus().run();
-  }, [editor, note]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [note.id]);
 
   // タイトル更新時
   useEffect(() => {
