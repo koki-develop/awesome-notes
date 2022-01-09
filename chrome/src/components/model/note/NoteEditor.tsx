@@ -18,7 +18,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     extensions: [StarterKit],
     content: body,
     onUpdate({ editor }) {
-      const title = editor.getText().split('\n')[0].slice(0, 50);
+      const title = editor.getText().trim().split('\n')[0].slice(0, 50);
       setTitle(title);
       setBody(editor.getHTML());
     },
