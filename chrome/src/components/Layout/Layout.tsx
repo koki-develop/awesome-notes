@@ -6,8 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
-import { LocalStorage } from '../../lib/localStorage';
-import NoteListDrawer from '../model/note/NoteListDrawer';
+import { LocalStorage } from '@/lib/localStorage';
+import NoteListDrawer from '@/components/model/note/NoteListDrawer';
 
 const headerHeight = 64;
 const drawerWidth = 240;

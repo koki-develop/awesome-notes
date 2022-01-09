@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NoteList from './NoteList';
+import NoteList from '@/components/model/note/NoteList';
 
 const NoteListDrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',

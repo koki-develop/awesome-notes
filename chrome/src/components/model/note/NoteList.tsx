@@ -5,9 +5,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import AddIcon from '@mui/icons-material/Add';
-import { useNotes } from '../../../hooks/noteHooks';
-import { useCreateNote, useSelectNote } from '../../../hooks/noteHooks';
-import NoteListItem from './NoteListItem';
+import { useNotes } from '@/hooks/noteHooks';
+import { useCreateNote, useSelectNote } from '@/hooks/noteHooks';
+import NoteListItem from '@/components/model/note/NoteListItem';
 
 const NoteList: React.VFC = React.memo(() => {
   const notes = useNotes();

@@ -8,8 +8,8 @@ import {
   useDeleteNote,
   useSelectNote,
   useSelectedNote,
-} from '../../../hooks/noteHooks';
-import { Note } from '../../../models/note';
+} from '@/hooks/noteHooks';
+import { Note } from '@/models/note';
 
 export type NoteListItemProps = {
   note: Note;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
-import { useSelectedNote } from '../../hooks/noteHooks';
-import Layout from '../Layout';
-import NoteEditor from '../model/note/NoteEditor';
+import { useSelectedNote } from '@/hooks/noteHooks';
+import Layout from '@/components/Layout';
+import NoteEditor from '@/components/model/note/NoteEditor';
 
 const App: React.VFC = React.memo(() => {
   return (

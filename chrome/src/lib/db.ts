@@ -1,5 +1,5 @@
 import Dexie, { Table } from 'dexie';
-import { Note } from '../models/note';
+import { Note } from '@/models/note';
 
 export class MySubClassedDexie extends Dexie {
   notes!: Table<Note>;

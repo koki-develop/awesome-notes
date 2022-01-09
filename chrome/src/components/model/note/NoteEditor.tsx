@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useUpdateNote } from '../../../hooks/noteHooks';
+import { useUpdateNote } from '@/hooks/noteHooks';
+import { Note } from '@/models/note';
 import './NoteEditor.scss';
-import { Note } from '../../../models/note';
 
 export type NoteEditorProps = {
   note: Note;
