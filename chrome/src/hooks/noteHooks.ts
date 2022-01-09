@@ -9,7 +9,7 @@ import { Note } from '@/models/note';
 export const useNotes = (): Note[] => {
   const notes = useLiveQuery(
     () => db.notes.orderBy('updatedAt').reverse().toArray() ?? [],
-  );
+  ) as Note[];
   return notes ?? [];
 };
 
@@ -17,7 +17,7 @@ export const useNote = (id: number | null): Note | null => {
   const note = useLiveQuery(() => {
     if (id == null) return undefined;
     return db.notes.get(id);
-  }, [id]);
+  }, [id]) as Note;
   return note ?? null;
 };
 

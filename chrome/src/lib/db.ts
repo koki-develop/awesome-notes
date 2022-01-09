@@ -2,7 +2,7 @@ import Dexie, { Table } from 'dexie';
 import { Note } from '@/models/note';
 
 export class MySubClassedDexie extends Dexie {
-  notes!: Table<Note>;
+  notes!: Table<Omit<Note, 'id'> & { id?: number }>;
 
   constructor() {
     super('awesome-notes');

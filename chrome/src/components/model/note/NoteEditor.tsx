@@ -34,7 +34,6 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   // 内容更新時
   useEffect(() => {
     if (note.body === body) return;
-    if (!note.id) return;
     updateNote(note.id, { body });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [body, updateNote]);

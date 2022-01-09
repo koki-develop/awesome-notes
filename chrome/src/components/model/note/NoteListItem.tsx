@@ -31,7 +31,6 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
   }, [note, selectNote]);
 
   const handleClickDelete = useCallback(() => {
-    if (!note.id) return;
     deleteNote(note.id);
     if (selectedNote?.id === note.id) {
       selectNote(null);
