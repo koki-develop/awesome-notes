@@ -26,7 +26,7 @@ const NoteList: React.VFC = React.memo(() => {
       <ListItem disablePadding>
         <ListItemButton onClick={handleClickNew}>
           <AddIcon />
-          <ListItemText primary='New Note' />
+          <ListItemText primary='New' />
         </ListItemButton>
       </ListItem>
       <Divider />

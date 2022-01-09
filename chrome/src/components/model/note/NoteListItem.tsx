@@ -27,6 +27,10 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
     return selectedNote?.id === note.id;
   }, [note.id, selectedNote?.id]);
 
+  const isEmpty = useMemo(() => {
+    return note.title === '';
+  }, [note.title]);
+
   const handleClickItem = useCallback(() => {
     selectNote(note);
   }, [note, selectNote]);
@@ -53,9 +57,10 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
         sx={{ overflow: 'hidden' }}
       >
         <ListItemText
-          primary={note.title}
+          primary={isEmpty ? 'New Note' : note.title}
           primaryTypographyProps={{
             sx: {
+              color: isEmpty ? theme => theme.palette.text.disabled : undefined,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
