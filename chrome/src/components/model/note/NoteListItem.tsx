@@ -52,7 +52,7 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
         sx={{ overflow: 'hidden' }}
       >
         <ListItemText
-          primary={note.body}
+          primary={note.title}
           primaryTypographyProps={{
             sx: {
               overflow: 'hidden',

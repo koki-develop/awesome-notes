@@ -16,7 +16,7 @@ const NoteList: React.VFC = React.memo(() => {
   const { createNote } = useCreateNote();
 
   const handleClickNew = useCallback(() => {
-    createNote({ body: '' }).then(note => {
+    createNote({ title: '', body: '' }).then(note => {
       selectNote(note);
     });
   }, [createNote, selectNote]);

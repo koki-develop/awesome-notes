@@ -44,7 +44,7 @@ export const useSelectNote = () => {
 export const useCreateNote = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const createNote = useCallback((params: Pick<Note, 'body'>) => {
+  const createNote = useCallback((params: Pick<Note, 'title' | 'body'>) => {
     setLoading(true);
     const now = new Date();
     const newNote = { ...params, createdAt: now, updatedAt: now };
@@ -64,11 +64,14 @@ export const useCreateNote = () => {
 export const useUpdateNote = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const updateNote = useCallback((id: number, params: Pick<Note, 'body'>) => {
-    setLoading(true);
-    const now = new Date();
-    return db.notes.update(id, { ...params, updatedAt: now });
-  }, []);
+  const updateNote = useCallback(
+    (id: number, params: Partial<Pick<Note, 'title' | 'body'>>) => {
+      setLoading(true);
+      const now = new Date();
+      return db.notes.update(id, { ...params, updatedAt: now });
+    },
+    [],
+  );
 
   return { updateNote, loading };
 };

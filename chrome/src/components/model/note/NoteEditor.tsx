@@ -11,12 +11,15 @@ export type NoteEditorProps = {
 
 const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const { note } = props;
+  const [title, setTitle] = useState<string>(note.title);
   const [body, setBody] = useState<string>(note.body);
 
   const editor = useEditor({
     extensions: [StarterKit],
     content: body,
     onUpdate({ editor }) {
+      const title = editor.getText().split('\n')[0].slice(0, 50);
+      setTitle(title);
       setBody(editor.getHTML());
     },
   });
@@ -30,6 +33,13 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     setBody(note.body);
     editor.chain().setContent(note.body).focus().run();
   }, [editor, note]);
+
+  // タイトル更新時
+  useEffect(() => {
+    if (note.title === title) return;
+    updateNote(note.id, { title });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, updateNote]);
 
   // 内容更新時
   useEffect(() => {
