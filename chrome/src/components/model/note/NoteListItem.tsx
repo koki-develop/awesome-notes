@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { formatRelative } from 'date-fns';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -60,6 +61,7 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
               whiteSpace: 'nowrap',
             },
           }}
+          secondary={formatRelative(note.updatedAt, new Date())}
         />
       </ListItemButton>
     </ListItem>
