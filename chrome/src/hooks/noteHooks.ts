@@ -30,8 +30,8 @@ export const useSelectNote = () => {
   const setSelectedNoteId = useSetRecoilState(selectedNoteIdState);
 
   const selectNote = useCallback(
-    (note: Note) => {
-      const id = note.id ?? null;
+    (note: Note | null) => {
+      const id = note?.id ?? null;
       setSelectedNoteId(id);
       LocalStorage.setSelectedNoteId(id);
     },
