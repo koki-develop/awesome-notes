@@ -31,7 +31,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   useEffect(() => {
     if (!editor) return;
     setContent({ title: note.title, body: note.body });
-    editor.chain().setContent(note.body).focus().run();
+    editor.chain().setContent(note.body).focus().setTextSelection(0).run();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note.id]);
 
