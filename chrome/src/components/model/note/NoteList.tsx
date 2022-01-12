@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
+import List, { ListProps } from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -9,7 +9,9 @@ import { useNotes } from '@/hooks/noteHooks';
 import { useCreateNote, useSelectNote } from '@/hooks/noteHooks';
 import NoteListItem from '@/components/model/note/NoteListItem';
 
-const NoteList: React.VFC = React.memo(() => {
+export type NoteListProps = ListProps;
+
+const NoteList: React.VFC<NoteListProps> = React.memo(props => {
   const notes = useNotes();
 
   const { selectNote } = useSelectNote();
@@ -22,7 +24,7 @@ const NoteList: React.VFC = React.memo(() => {
   }, [createNote, selectNote]);
 
   return (
-    <List disablePadding sx={{ width: 240 }}>
+    <List disablePadding {...props}>
       <ListItem disablePadding>
         <ListItemButton onClick={handleClickNew}>
           <AddIcon />

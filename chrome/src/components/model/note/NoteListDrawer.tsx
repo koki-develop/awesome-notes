@@ -40,7 +40,7 @@ const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
         </IconButton>
       </NoteListDrawerHeader>
       <Divider />
-      <NoteList />
+      <NoteList sx={{ width }} />
     </Drawer>
   );
 });

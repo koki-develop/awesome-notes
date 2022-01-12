@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -30,9 +32,11 @@ export default Layout;
 
 const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const { children, popup } = props;
+  const theme = useTheme();
+  const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const headerHeight = 64;
-  const drawerWidth = 240;
+  const drawerWidth = isSmDown || popup ? 180 : 240;
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(
     LocalStorage.getOpenDrawer(),
@@ -56,7 +60,7 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   }, [openDrawer]);
 
   return (
-    <Box sx={{ height: '100vh', minWidth: 500, minHeight: 500 }}>
+    <Box sx={{ height: '100vh', minWidth: 750, minHeight: 500 }}>
       {/* header */}
       <AppBar
         position='static'
