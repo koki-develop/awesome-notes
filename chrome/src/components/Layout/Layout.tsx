@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
@@ -75,7 +76,7 @@ Layout.displayName = 'Layout';
 export default Layout;
 
 const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
-  const { children } = props;
+  const { children, popup } = props;
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(
     LocalStorage.getOpenDrawer(),
@@ -99,14 +100,21 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   }, [openDrawer]);
 
   return (
-    <Box sx={{ height: '100vh', minWidth: 500 }}>
+    <Box sx={{ height: '100vh', minWidth: 500, minHeight: 500 }}>
       {/* header */}
       <AppBar position='static' open={openDrawer}>
         <Toolbar>
-          {!openDrawer && (
-            <IconButton onClick={handleClickMenu}>
-              <MenuIcon />
-            </IconButton>
+          <Box sx={{ flexGrow: 1 }}>
+            {!openDrawer && (
+              <IconButton onClick={handleClickMenu}>
+                <MenuIcon />
+              </IconButton>
+            )}
+          </Box>
+          {popup && (
+            <Button variant='contained' onClick={handleClickOpenApp}>
+              Open App
+            </Button>
           )}
         </Toolbar>
       </AppBar>
@@ -121,10 +129,6 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
 
       {/* main content */}
       <Main open={openDrawer}>{children}</Main>
-
-      {/* footer */}
-      {/* TODO: 見た目修正 */}
-      <button onClick={handleClickOpenApp}>Open App</button>
     </Box>
   );
 });
