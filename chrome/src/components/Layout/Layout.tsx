@@ -107,12 +107,14 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
 
       {/* main content */}
       <Box
+        component='main'
         sx={theme => ({
           height: `calc(100% - ${headerHeight}px)`,
           transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
+          wordBreak: 'break-all',
           ...(openDrawer && {
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: `${drawerWidth}px`,
