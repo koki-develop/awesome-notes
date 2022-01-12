@@ -16,14 +16,14 @@ const NoteListDrawerHeader = styled('div')(({ theme }) => ({
 
 export type NoteListDrawerProps = {
   open: boolean;
-  height: number;
+  headerHeight: number;
   width: number;
 
   onClose: () => void;
 };
 
 const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
-  const { open, height, width, onClose } = props;
+  const { open, headerHeight, width, onClose } = props;
 
   return (
     <Drawer
@@ -34,7 +34,7 @@ const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
         width,
       }}
     >
-      <NoteListDrawerHeader sx={{ height }}>
+      <NoteListDrawerHeader sx={{ height: headerHeight }}>
         <IconButton onClick={onClose}>
           <ChevronLeftIcon />
         </IconButton>

@@ -122,7 +122,7 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       {/* drawer */}
       <NoteListDrawer
         open={openDrawer}
-        height={headerHeight}
+        headerHeight={headerHeight}
         width={drawerWidth}
         onClose={handleCloseDrawer}
       />
