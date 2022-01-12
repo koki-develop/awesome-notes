@@ -19,6 +19,7 @@ type AppBarProps = MuiAppBarProps & {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
+  justifyContent: 'center',
   height: headerHeight,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
@@ -56,6 +57,8 @@ const Main = styled('main', {
 
 export type LayoutProps = {
   children: React.ReactNode;
+
+  popup?: boolean;
 };
 
 const Layout: React.VFC<LayoutProps> = React.memo(props => {
@@ -73,9 +76,15 @@ export default Layout;
 
 const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const { children } = props;
+
   const [openDrawer, setOpenDrawer] = useState<boolean>(
     LocalStorage.getOpenDrawer(),
   );
+
+  const handleClickOpenApp = useCallback(async () => {
+    const url = chrome.runtime.getURL('app.html');
+    chrome.tabs.create({ url });
+  }, []);
 
   const handleClickMenu = useCallback(() => {
     setOpenDrawer(true);
@@ -90,7 +99,7 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   }, [openDrawer]);
 
   return (
-    <Box sx={{ height: '100vh' }}>
+    <Box sx={{ height: '100vh', minWidth: 500 }}>
       {/* header */}
       <AppBar position='static' open={openDrawer}>
         <Toolbar>
@@ -103,12 +112,17 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       {/* drawer */}
       <NoteListDrawer
         open={openDrawer}
+        height={headerHeight}
         width={drawerWidth}
         onClose={handleCloseDrawer}
       />
 
       {/* main content */}
       <Main open={openDrawer}>{children}</Main>
+
+      {/* footer */}
+      {/* TODO: 見た目修正 */}
+      <button onClick={handleClickOpenApp}>Open App</button>
     </Box>
   );
 });

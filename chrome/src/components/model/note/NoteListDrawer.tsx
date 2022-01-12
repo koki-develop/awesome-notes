@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -16,13 +17,14 @@ const NoteListDrawerHeader = styled('div')(({ theme }) => ({
 
 export type NoteListDrawerProps = {
   open: boolean;
+  height: number;
   width: number;
 
   onClose: () => void;
 };
 
 const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
-  const { open, width, onClose } = props;
+  const { open, height, width, onClose } = props;
 
   return (
     <Drawer
@@ -33,7 +35,7 @@ const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
         width,
       }}
     >
-      <NoteListDrawerHeader>
+      <NoteListDrawerHeader sx={{ height }}>
         <IconButton onClick={onClose}>
           <ChevronLeftIcon />
         </IconButton>
