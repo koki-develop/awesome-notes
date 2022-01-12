@@ -15,6 +15,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     title: note.title,
     body: note.body,
   });
+  const [editing, setEditing] = useState<boolean>(false);
 
   const editor = useEditor({
     extensions: [StarterKit],
@@ -22,6 +23,12 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     onUpdate({ editor }) {
       const title = editor.getText().trim().split('\n')[0].slice(0, 50);
       setContent({ title, body: editor.getHTML() });
+    },
+    onFocus() {
+      setEditing(true);
+    },
+    onBlur() {
+      setEditing(false);
     },
   });
 
@@ -34,6 +41,13 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     editor.chain().setContent(note.body).focus().setTextSelection(0).run();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note.id]);
+
+  // 内容更新時
+  useEffect(() => {
+    if (!editor) return;
+    if (editing) return;
+    editor.chain().setContent(note.body).run();
+  }, [editing, editor, note.body]);
 
   // 内容更新時
   useEffect(() => {
