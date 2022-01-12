@@ -1,6 +1,13 @@
 const localStorageKeys = {
   selectedNoteId: 'SELECTED_NOTE_ID',
-  openDrawer: 'OPEN_DRAWER',
+  openDrawer: {
+    app: 'OPEN_DRAWER',
+    popup: 'OPEN_DRAWER_POPUP',
+  },
+};
+
+type Options = {
+  popup?: boolean;
 };
 
 export class LocalStorage {
@@ -22,13 +29,19 @@ export class LocalStorage {
     }
   }
 
-  public static getOpenDrawer(): boolean {
-    const value = localStorage.getItem(localStorageKeys.openDrawer);
+  public static getOpenDrawer(options?: Options): boolean {
+    const key = options?.popup
+      ? localStorageKeys.openDrawer.popup
+      : localStorageKeys.openDrawer.app;
+    const value = localStorage.getItem(key);
     return value === 'true';
   }
 
-  public static setOpenDrawer(value: boolean): void {
-    localStorage.setItem(localStorageKeys.openDrawer, JSON.stringify(value));
+  public static setOpenDrawer(value: boolean, options?: Options): void {
+    const key = options?.popup
+      ? localStorageKeys.openDrawer.popup
+      : localStorageKeys.openDrawer.app;
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   private static _removeSelectedNoteId(): void {

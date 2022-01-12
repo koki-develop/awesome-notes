@@ -39,7 +39,7 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const drawerWidth = isSmDown || popup ? 200 : 240;
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(
-    LocalStorage.getOpenDrawer(),
+    LocalStorage.getOpenDrawer({ popup }),
   );
 
   const handleClickOpenApp = useCallback(async () => {
@@ -56,8 +56,8 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   }, []);
 
   useEffect(() => {
-    LocalStorage.setOpenDrawer(openDrawer);
-  }, [openDrawer]);
+    LocalStorage.setOpenDrawer(openDrawer, { popup });
+  }, [openDrawer, popup]);
 
   return (
     <Box sx={{ height: '100vh', minWidth: 750, minHeight: 500 }}>
