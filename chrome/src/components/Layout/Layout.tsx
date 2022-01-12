@@ -103,9 +103,11 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       {/* header */}
       <AppBar position='static' open={openDrawer}>
         <Toolbar>
-          <IconButton onClick={handleClickMenu}>
-            <MenuIcon />
-          </IconButton>
+          {!openDrawer && (
+            <IconButton onClick={handleClickMenu}>
+              <MenuIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
 
