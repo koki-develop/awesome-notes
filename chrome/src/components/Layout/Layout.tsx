@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { styled } from '@mui/material/styles';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,52 +8,6 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import { LocalStorage } from '@/lib/localStorage';
 import NoteListDrawer from '@/components/model/note/NoteListDrawer';
-
-const headerHeight = 64;
-const drawerWidth = 240;
-
-type AppBarProps = MuiAppBarProps & {
-  open: boolean;
-};
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  justifyContent: 'center',
-  height: headerHeight,
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-type MainProps = { open: boolean };
-
-const Main = styled('main', {
-  shouldForwardProp: prop => prop !== 'open',
-})<MainProps>(({ theme, open }) => ({
-  height: `calc(100% - ${headerHeight}px)`,
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -77,6 +30,9 @@ export default Layout;
 
 const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const { children, popup } = props;
+
+  const headerHeight = 64;
+  const drawerWidth = 240;
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(
     LocalStorage.getOpenDrawer(),
@@ -102,7 +58,25 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   return (
     <Box sx={{ height: '100vh', minWidth: 500, minHeight: 500 }}>
       {/* header */}
-      <AppBar position='static' open={openDrawer}>
+      <AppBar
+        position='static'
+        sx={theme => ({
+          justifyContent: 'center',
+          height: headerHeight,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          ...(openDrawer && {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: `${drawerWidth}px`,
+            transition: theme.transitions.create(['margin', 'width'], {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          }),
+        })}
+      >
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
             {!openDrawer && (
@@ -128,7 +102,25 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       />
 
       {/* main content */}
-      <Main open={openDrawer}>{children}</Main>
+      <Box
+        sx={theme => ({
+          height: `calc(100% - ${headerHeight}px)`,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          ...(openDrawer && {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: `${drawerWidth}px`,
+            transition: theme.transitions.create(['margin', 'width'], {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          }),
+        })}
+      >
+        {children}
+      </Box>
     </Box>
   );
 });
