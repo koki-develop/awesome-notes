@@ -34,7 +34,11 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
 
   const { updateNote } = useUpdateNote();
 
-  // ノートを選択時
+  useEffect(() => {
+    if (!editor) return;
+    editor.commands.focus();
+  }, [editor]);
+
   useEffect(() => {
     if (!editor) return;
     setContent({ title: note.title, body: note.body });
@@ -42,14 +46,12 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [note.id]);
 
-  // 内容更新時
   useEffect(() => {
     if (!editor) return;
     if (editing) return;
-    editor.chain().setContent(note.body).run();
+    editor.chain().setContent(note.body).setTextSelection(0).run();
   }, [editing, editor, note.body]);
 
-  // 内容更新時
   useEffect(() => {
     if (note.title === content.title && note.body === content.body) return;
     updateNote(note.id, content);
