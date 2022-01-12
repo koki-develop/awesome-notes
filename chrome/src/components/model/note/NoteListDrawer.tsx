@@ -40,7 +40,13 @@ const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
         </IconButton>
       </NoteListDrawerHeader>
       <Divider />
-      <NoteList sx={{ width }} />
+      <NoteList
+        sx={{
+          width,
+          height: `calc(100vh - ${headerHeight}px)`,
+          overflowY: 'auto',
+        }}
+      />
     </Drawer>
   );
 });
