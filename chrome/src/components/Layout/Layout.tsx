@@ -36,7 +36,7 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const headerHeight = 64;
-  const drawerWidth = isSmDown || popup ? 180 : 240;
+  const drawerWidth = isSmDown || popup ? 200 : 240;
 
   const [openDrawer, setOpenDrawer] = useState<boolean>(
     LocalStorage.getOpenDrawer(),
