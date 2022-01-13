@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
+import Link from '@tiptap/extension-link';
 import StarterKit from '@tiptap/starter-kit';
 import { useUpdateNote } from '@/hooks/noteHooks';
 import { Note } from '@/models/note';
@@ -18,7 +19,13 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const [editing, setEditing] = useState<boolean>(false);
 
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Link.configure({
+        autolink: true,
+        linkOnPaste: false,
+      }),
+    ],
     content: content.body,
     onUpdate({ editor }) {
       const title = editor.getText().trim().split('\n')[0].slice(0, 50);
