@@ -59,7 +59,12 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
 
   useEffect(() => {
     if (note.title === content.title && note.body === content.body) return;
-    updateNote(note.id, content);
+    const timeoutId = setTimeout(() => {
+      updateNote(note.id, content);
+    }, 300);
+    return () => {
+      clearTimeout(timeoutId);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, updateNote]);
 
