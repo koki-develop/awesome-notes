@@ -61,7 +61,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     if (note.title === content.title && note.body === content.body) return;
     const timeoutId = setTimeout(() => {
       updateNote(note.id, content);
-    }, 300);
+    }, 200);
     return () => {
       clearTimeout(timeoutId);
     };
