@@ -44,8 +44,9 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
   }, [note, selectNote]);
 
   const handleClickDelete = useCallback(() => {
+    selectNote(note);
     setDeleteConfirming(true);
-  }, []);
+  }, [note, selectNote]);
 
   const handleCloseDeleteConfirm = useCallback(() => {
     setDeleteConfirming(false);
@@ -63,18 +64,22 @@ const NoteListItem: React.VFC<NoteListItemProps> = React.memo(props => {
   return (
     <>
       <Dialog open={deleteConfirming} onClose={handleCloseDeleteConfirm}>
-        <DialogTitle>本当に削除しますか？</DialogTitle>
+        <DialogTitle>
+          Are you sure you want to delete this note permanently?
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>この操作は取り消せません。</DialogContentText>
+          <DialogContentText>
+            This operation cannot be undone.
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDeleteConfirm}>キャンセル</Button>
+          <Button onClick={handleCloseDeleteConfirm}>Cancel</Button>
           <Button
             onClick={handleConfirmDelete}
             variant='contained'
             color='error'
           >
-            削除
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
