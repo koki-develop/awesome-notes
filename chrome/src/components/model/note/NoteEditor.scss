@@ -6,5 +6,9 @@
         outline: none;
         min-height: 100%;
         padding: 12px;
+
+        hr.ProseMirror-selectednode {
+            border-top: 2px solid #78A4FC;
+        }
     }
 }
