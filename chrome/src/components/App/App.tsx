@@ -48,7 +48,7 @@ const AppContent: React.VFC<AppProps> = React.memo(props => {
               textAlign: 'center',
             }}
           >
-            ノートを選択してください
+            Please select a note.
           </Typography>
         </Box>
       )}
