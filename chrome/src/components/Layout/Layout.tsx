@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,6 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import { LocalStorage } from '@/lib/localStorage';
 import NoteListDrawer from '@/components/model/note/NoteListDrawer';
+import { theme } from './theme';
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -19,10 +20,9 @@ export type LayoutProps = {
 
 const Layout: React.VFC<LayoutProps> = React.memo(props => {
   return (
-    <>
-      <CssBaseline />
+    <ThemeProvider theme={theme}>
       <LayoutContent {...props} />
-    </>
+    </ThemeProvider>
   );
 });
 
@@ -61,6 +61,8 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
 
   return (
     <Box sx={{ height: '100vh', minWidth: 750, minHeight: 500 }}>
+      <CssBaseline />
+
       {/* header */}
       <AppBar
         position='static'
@@ -84,13 +86,18 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
             {!openDrawer && (
-              <IconButton onClick={handleClickMenu}>
+              <IconButton color='secondary' onClick={handleClickMenu}>
                 <MenuIcon />
               </IconButton>
             )}
           </Box>
           {popup && (
-            <Button variant='contained' onClick={handleClickOpenApp}>
+            <Button
+              color='secondary'
+              variant='contained'
+              onClick={handleClickOpenApp}
+              sx={{ fontWeight: 'bold' }}
+            >
               Open App
             </Button>
           )}
