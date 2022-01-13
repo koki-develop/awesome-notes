@@ -4,13 +4,13 @@ const primary: PaletteColorOptions = {
   main: '#4884FC',
   light: '#78A4FC',
   dark: '#1460FA',
-  contrastText: '#EAE8F3',
+  contrastText: '#FFFFFF',
 };
 
 const secondary: PaletteColorOptions = {
-  main: '#EAE8F3',
+  main: '#FFFFFF',
   light: '#FFFFFF',
-  dark: '#CAC6E1',
+  dark: '#EAE8F3',
   contrastText: '#4884FC',
 };
 
