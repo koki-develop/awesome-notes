@@ -6,6 +6,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
 import { useUpdateNote } from '@/hooks/noteHooks';
 import { Note } from '@/models/note';
+import NoteEditorTrailingNodeExtension from './NoteEditorTrailingNodeExtension';
 import './NoteEditor.scss';
 
 const getPlaceholder = (node: ProsemirrorNode): string => {
@@ -39,6 +40,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
       Placeholder.configure({
         placeholder: ({ node }) => getPlaceholder(node),
       }),
+      NoteEditorTrailingNodeExtension,
     ],
     content: content.body,
     onUpdate({ editor }) {
