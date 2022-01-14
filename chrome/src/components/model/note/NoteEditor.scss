@@ -7,6 +7,14 @@
         min-height: 100%;
         padding: 12px;
 
+        .is-empty::before {
+            content: attr(data-placeholder);
+            float: left;
+            color: rgba(0, 0, 0, 0.38);
+            pointer-events: none;
+            height: 0;
+        }
+
         hr.ProseMirror-selectednode {
             border-top: 2px solid #78A4FC;
         }

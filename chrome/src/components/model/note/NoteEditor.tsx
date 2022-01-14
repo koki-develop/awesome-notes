@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { Node as ProsemirrorNode } from 'prosemirror-model';
 import { useEditor, EditorContent } from '@tiptap/react';
 import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
 import { useUpdateNote } from '@/hooks/noteHooks';
 import { Note } from '@/models/note';
 import './NoteEditor.scss';
+
+const getPlaceholder = (node: ProsemirrorNode): string => {
+  switch (node.type.name) {
+    case 'heading':
+      return `Heading${node.attrs.level}`;
+    default:
+      return '';
+  }
+};
 
 export type NoteEditorProps = {
   note: Note;
@@ -24,6 +35,9 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
       Link.configure({
         autolink: true,
         linkOnPaste: false,
+      }),
+      Placeholder.configure({
+        placeholder: ({ node }) => getPlaceholder(node),
       }),
     ],
     content: content.body,
