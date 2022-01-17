@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Node as ProsemirrorNode } from 'prosemirror-model';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor, BubbleMenu, EditorContent } from '@tiptap/react';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
+import Underline from '@tiptap/extension-underline';
 import { useUpdateNote } from '@/hooks/noteHooks';
 import { Note } from '@/models/note';
 import NoteEditorTrailingNodeExtension from './NoteEditorTrailingNodeExtension';
@@ -45,6 +46,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
       TaskItem.configure({
         nested: true,
       }),
+      Underline,
       NoteEditorTrailingNodeExtension,
     ],
     content: content.body,
@@ -55,6 +57,26 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   });
 
   const { updateNote } = useUpdateNote();
+
+  const handleClickBold = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().toggleBold().run();
+  }, [editor]);
+
+  const handleClickItalic = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().toggleItalic().run();
+  }, [editor]);
+
+  const handleClickUnderline = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().toggleUnderline().run();
+  }, [editor]);
+
+  const handleClickCode = useCallback(() => {
+    if (!editor) return;
+    editor.chain().focus().toggleCode().run();
+  }, [editor]);
 
   useEffect(() => {
     if (!editor) return;
@@ -84,7 +106,19 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, updateNote]);
 
-  return <EditorContent className='note-editor' editor={editor} />;
+  return (
+    <>
+      {editor && (
+        <BubbleMenu editor={editor}>
+          <button onClick={handleClickBold}>bold</button>
+          <button onClick={handleClickItalic}>italic</button>
+          <button onClick={handleClickUnderline}>underline</button>
+          <button onClick={handleClickCode}>code</button>
+        </BubbleMenu>
+      )}
+      <EditorContent className='note-editor' editor={editor} />
+    </>
+  );
 });
 
 NoteEditor.displayName = 'NoteEditor';
