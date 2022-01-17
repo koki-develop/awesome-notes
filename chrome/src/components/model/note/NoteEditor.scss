@@ -7,6 +7,7 @@
         min-height: 100%;
         padding: 12px;
 
+        // placeholder
         .is-empty::before {
             content: attr(data-placeholder);
             float: left;
@@ -15,13 +16,61 @@
             height: 0;
         }
 
+        // horizontal rule
         hr.ProseMirror-selectednode {
             border-top: 2px solid #78A4FC;
         }
 
+        // anchor
         a {
             color: #4884FC;
             cursor: pointer;
+        }
+
+        // unordered list
+        ul {
+            list-style: disc;
+            ul {
+                list-style: circle;
+                ul {
+                    list-style: square;
+                }
+            }
+        }
+
+        // ordered list
+        ol {
+            list-style: decimal;
+            ol {
+                list-style: lower-alpha;
+                ol {
+                    list-style: lower-roman;
+                }
+            }
+        }
+
+        // inline code
+        code {
+            background-color: #AFB8C133;
+            border-radius: 2px;
+            padding: 2px;
+        }
+
+        // code block
+        pre {
+            background-color: #AFB8C133;
+            border-radius: 6px;
+            padding: 12px;
+            code {
+                background-color: transparent;
+            }
+        }
+
+        // blockquote
+        blockquote {
+            border-left: 4px solid #D0D7DE;
+            margin: 0;
+            padding-left: 16px;
         }
     }
 }
