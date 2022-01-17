@@ -13,7 +13,7 @@ export default Extension.create({
     const key = new PluginKey(this.name);
 
     const disableNodeTypes = Object.entries(this.editor.schema.nodes)
-      .map(([_, node]) => node)
+      .map(([, node]) => node)
       .filter(node => {
         return ['paragraph', 'heading'].includes(node.name);
       });
