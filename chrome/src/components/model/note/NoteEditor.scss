@@ -21,6 +21,15 @@
             border-top: 2px solid #78A4FC;
         }
 
+        h1, h2, h3, h4, h5, h6 {
+            margin: 8px 0;
+        }
+
+        // paragraph
+        p {
+            margin: 0;
+        }
+
         // anchor
         a {
             color: #4884FC;
@@ -30,6 +39,7 @@
         // unordered list
         ul {
             list-style: disc;
+            margin: 0;
             ul {
                 list-style: circle;
                 ul {
@@ -41,10 +51,26 @@
         // ordered list
         ol {
             list-style: decimal;
+            margin: 0;
             ol {
                 list-style: lower-alpha;
                 ol {
                     list-style: lower-roman;
+                }
+            }
+        }
+
+        // task list
+        ul[data-type="taskList"] {
+            list-style: none;
+            padding-left: 8px;
+            li {
+                display: flex;
+                > label {
+                    margin-right: 0.5rem;
+                }
+                > div {
+                    flex: 1 1 auto;
                 }
             }
         }
@@ -69,7 +95,7 @@
         // blockquote
         blockquote {
             border-left: 4px solid #D0D7DE;
-            margin: 0;
+            margin: 8px 0;
             padding-left: 16px;
         }
     }

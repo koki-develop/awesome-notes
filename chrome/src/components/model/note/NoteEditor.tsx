@@ -4,6 +4,8 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import StarterKit from '@tiptap/starter-kit';
+import TaskList from '@tiptap/extension-task-list';
+import TaskItem from '@tiptap/extension-task-item';
 import { useUpdateNote } from '@/hooks/noteHooks';
 import { Note } from '@/models/note';
 import NoteEditorTrailingNodeExtension from './NoteEditorTrailingNodeExtension';
@@ -32,13 +34,17 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
       Link.configure({
         autolink: true,
         linkOnPaste: false,
       }),
       Placeholder.configure({
         placeholder: ({ node }) => getPlaceholder(node),
+      }),
+      StarterKit,
+      TaskList,
+      TaskItem.configure({
+        nested: true,
       }),
       NoteEditorTrailingNodeExtension,
     ],
