@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +11,7 @@ import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
 import { LocalStorage } from '@/lib/localStorage';
 import NoteListDrawer from '@/components/model/note/NoteListDrawer';
+import GitHubIcon from '@/static/images/github-icon.svg';
 import { theme } from './theme';
 
 export type LayoutProps = {
@@ -96,11 +98,18 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
               color='secondary'
               variant='contained'
               onClick={handleClickOpenApp}
-              sx={{ fontWeight: 'bold' }}
+              sx={{ fontWeight: 'bold', mr: 1 }}
             >
               Open App
             </Button>
           )}
+          <a
+            href='https://github.com/koki-develop/awesome-notes'
+            target='_blank'
+            rel='noreferrer noopener'
+          >
+            <Avatar src={GitHubIcon} sx={{ height: 32, width: 32 }} />
+          </a>
         </Toolbar>
       </AppBar>
 
