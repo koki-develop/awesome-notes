@@ -706,6 +706,15 @@
     "@tiptap/extension-strike" "^2.0.0-beta.27"
     "@tiptap/extension-text" "^2.0.0-beta.15"
 
+"@tiptap/suggestion@^2.0.0-beta.87":
+  version "2.0.0-beta.87"
+  resolved "https://registry.yarnpkg.com/@tiptap/suggestion/-/suggestion-2.0.0-beta.87.tgz#e83fc3322f6d3168d7cb0e7807adcc7c64cca147"
+  integrity sha512-rPkJvbrbiT5CSRVQywjjptQUv7vLN/Hm3jGEsuTf56J05CXvtykMGju548Nm9Hm4gP5iE3iToPfF3l9feHirgg==
+  dependencies:
+    prosemirror-model "^1.16.1"
+    prosemirror-state "^1.3.4"
+    prosemirror-view "^1.23.5"
+
 "@types/chrome@^0.0.174":
   version "0.0.174"
   resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.174.tgz#ee1679f3a4fc57bb2c3b76957845a68afb7d478c"
