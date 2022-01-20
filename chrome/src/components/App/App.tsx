@@ -29,9 +29,10 @@ const AppContent: React.VFC<AppProps> = React.memo(props => {
 
   return (
     <Layout popup={popup}>
-      {note ? (
+      <Box display={note ? undefined : 'none'}>
         <NoteEditor note={note} />
-      ) : (
+      </Box>
+      {!note && (
         <Box
           sx={{
             alignItems: 'center',

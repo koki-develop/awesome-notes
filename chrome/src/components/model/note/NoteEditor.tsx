@@ -23,14 +23,14 @@ const getPlaceholder = (node: ProsemirrorNode): string => {
 };
 
 export type NoteEditorProps = {
-  note: Note;
+  note: Note | null;
 };
 
 const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   const { note } = props;
   const [content, setContent] = useState<Pick<Note, 'title' | 'body'>>({
-    title: note.title,
-    body: note.body,
+    title: note?.title ?? '',
+    body: note?.body ?? '',
   });
 
   const editor = useEditor({
@@ -66,6 +66,7 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
 
   useEffect(() => {
     if (!editor) return;
+    if (!note) return;
     editor
       .chain()
       .setContent(note.body)
@@ -74,9 +75,10 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
       .setMeta('addToHistory', false)
       .run();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [note.id]);
+  }, [note?.id]);
 
   useEffect(() => {
+    if (!note) return;
     if (note.title === content.title && note.body === content.body) return;
     const timeoutId = setTimeout(() => {
       updateNote(note.id, content);
