@@ -17,22 +17,22 @@ const NoteEditorBubbleMenu: React.VFC<NoteEditorBubbleMenuProps> = props => {
 
   const handleClickBold = useCallback(() => {
     if (!editor) return;
-    editor.chain().focus().toggleBold().run();
+    editor.chain().focus().unsetCode().toggleBold().run();
   }, [editor]);
 
   const handleClickItalic = useCallback(() => {
     if (!editor) return;
-    editor.chain().focus().toggleItalic().run();
+    editor.chain().focus().unsetCode().toggleItalic().run();
   }, [editor]);
 
   const handleClickUnderline = useCallback(() => {
     if (!editor) return;
-    editor.chain().focus().toggleUnderline().run();
+    editor.chain().focus().unsetCode().toggleUnderline().run();
   }, [editor]);
 
   const handleClickStrikethrough = useCallback(() => {
     if (!editor) return;
-    editor.chain().focus().toggleStrike().run();
+    editor.chain().focus().unsetCode().toggleStrike().run();
   }, [editor]);
 
   const handleClickCode = useCallback(() => {
