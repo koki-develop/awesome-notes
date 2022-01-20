@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Node as ProsemirrorNode } from 'prosemirror-model';
 import { useEditor, EditorContent } from '@tiptap/react';
 import Link from '@tiptap/extension-link';
@@ -58,31 +58,6 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   });
 
   const { updateNote } = useUpdateNote();
-
-  const handleClickBold = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().toggleBold().run();
-  }, [editor]);
-
-  const handleClickItalic = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().toggleItalic().run();
-  }, [editor]);
-
-  const handleClickUnderline = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().toggleUnderline().run();
-  }, [editor]);
-
-  const handleClickStrikethrough = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().toggleStrike().run();
-  }, [editor]);
-
-  const handleClickCode = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().toggleCode().run();
-  }, [editor]);
 
   useEffect(() => {
     if (!editor) return;
