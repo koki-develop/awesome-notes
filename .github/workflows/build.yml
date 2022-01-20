@@ -1,13 +1,10 @@
-name: chrome_build
+name: build
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: chrome
     strategy:
       matrix:
         node: [14.x, 16.x]
@@ -19,7 +16,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           cache: yarn
-          cache-dependency-path: chrome/yarn.lock
+          cache-dependency-path: yarn.lock
           node-version: ${{ matrix.node }}
       - name: install dependencies
         run: yarn install
