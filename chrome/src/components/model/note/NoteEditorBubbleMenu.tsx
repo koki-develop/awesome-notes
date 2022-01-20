@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { BubbleMenu, Editor } from '@tiptap/react';
+import { EditorState } from 'prosemirror-state';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import BoldIcon from '@mui/icons-material/FormatBold';
@@ -40,8 +41,22 @@ const NoteEditorBubbleMenu: React.VFC<NoteEditorBubbleMenuProps> = props => {
     editor.chain().focus().toggleCode().run();
   }, [editor]);
 
+  const shouldShowMenu = useCallback((props: { state: EditorState }) => {
+    const { state } = props;
+    if (state.selection.empty) return false;
+    const { content } = state.selection.content();
+
+    for (let i = 0; i < content.childCount; i++) {
+      const node = content.child(i);
+      if (!['horizontalRule'].includes(node.type.name)) {
+        return true;
+      }
+    }
+    return false;
+  }, []);
+
   return (
-    <BubbleMenu editor={editor}>
+    <BubbleMenu editor={editor} shouldShow={shouldShowMenu}>
       <Paper sx={{ p: 1 }}>
         <IconButton
           disableRipple
