@@ -103,13 +103,14 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
               Open App
             </Button>
           )}
-          <a
+          <IconButton
+            size='small'
             href='https://github.com/koki-develop/awesome-notes'
             target='_blank'
             rel='noreferrer noopener'
           >
             <Avatar src={GitHubIcon} sx={{ height: 32, width: 32 }} />
-          </a>
+          </IconButton>
         </Toolbar>
       </AppBar>
 
