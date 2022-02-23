@@ -1,10 +1,10 @@
-import React from 'react';
-import { RecoilRoot } from 'recoil';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import React from 'react';
+import { RecoilRoot } from 'recoil';
+import NoteEditor from '@/components/model/note/NoteEditor';
 import { useSelectedNote } from '@/hooks/noteHooks';
 import Layout from '@/components/Layout';
-import NoteEditor from '@/components/model/note/NoteEditor';
 
 export type AppProps = {
   popup?: boolean;

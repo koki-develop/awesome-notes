@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Node as ProsemirrorNode } from 'prosemirror-model';
-import { useEditor, EditorContent } from '@tiptap/react';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
-import StarterKit from '@tiptap/starter-kit';
-import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
+import TaskList from '@tiptap/extension-task-list';
 import Underline from '@tiptap/extension-underline';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import { Node as ProsemirrorNode } from 'prosemirror-model';
+import React, { useEffect, useState } from 'react';
 import { useUpdateNote } from '@/hooks/noteHooks';
 import { Note } from '@/models/note';
 import NoteEditorBubbleMenu from './NoteEditorBubbleMenu';

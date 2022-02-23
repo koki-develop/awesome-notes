@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core';
-import { PluginKey, Plugin } from 'prosemirror-state';
 import { Node as ProsemirrorNode, NodeType } from 'prosemirror-model';
+import { PluginKey, Plugin } from 'prosemirror-state';
 
 const nodeEqualsType = (node: ProsemirrorNode, types: NodeType[]): boolean => {
   return types.includes(node.type);

@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useTheme, ThemeProvider } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useMediaQuery } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
@@ -7,10 +6,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
-import MenuIcon from '@mui/icons-material/Menu';
-import { LocalStorage } from '@/lib/localStorage';
+import React, { useCallback, useEffect, useState } from 'react';
 import NoteListDrawer from '@/components/model/note/NoteListDrawer';
+import { LocalStorage } from '@/lib/localStorage';
 import GitHubIcon from '@/static/images/github-icon.svg';
 import { theme } from './theme';
 

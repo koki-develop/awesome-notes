@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { useCallback, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { selectedNoteIdState } from '@/recoil/atoms';
-import { LocalStorage } from '@/lib/localStorage';
 import { db } from '@/lib/db';
+import { LocalStorage } from '@/lib/localStorage';
 import { Note } from '@/models/note';
+import { selectedNoteIdState } from '@/recoil/atoms';
 
 export const useNotes = (): Note[] => {
   const notes = useLiveQuery(

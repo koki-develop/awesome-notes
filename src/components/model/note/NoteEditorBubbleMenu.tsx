@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { BubbleMenu, Editor } from '@tiptap/react';
-import { EditorState } from 'prosemirror-state';
+import CodeIcon from '@mui/icons-material/Code';
+import BoldIcon from '@mui/icons-material/FormatBold';
+import ItalicIcon from '@mui/icons-material/FormatItalic';
+import UnderlineIcon from '@mui/icons-material/FormatUnderlined';
+import StrikethroughIcon from '@mui/icons-material/StrikethroughS';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
-import BoldIcon from '@mui/icons-material/FormatBold';
-import CodeIcon from '@mui/icons-material/Code';
-import ItalicIcon from '@mui/icons-material/FormatItalic';
-import StrikethroughIcon from '@mui/icons-material/StrikethroughS';
-import UnderlineIcon from '@mui/icons-material/FormatUnderlined';
+import { BubbleMenu, Editor } from '@tiptap/react';
+import { EditorState } from 'prosemirror-state';
+import React, { useCallback } from 'react';
 
 export type NoteEditorBubbleMenuProps = {
   editor: Editor;

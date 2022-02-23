@@ -1,5 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { formatRelative } from 'date-fns';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,7 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { formatRelative } from 'date-fns';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   useDeleteNote,
   useSelectNote,
