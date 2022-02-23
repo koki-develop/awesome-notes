@@ -78,6 +78,15 @@ const NoteEditor: React.VFC<NoteEditorProps> = React.memo(props => {
   }, [note?.id]);
 
   useEffect(() => {
+    if (!editor) return;
+    if (editor.isFocused) return;
+    if (!note) return;
+    if (note.title === content.title && note.body === content.body) return;
+    editor.commands.setContent(note.body);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [note?.body]);
+
+  useEffect(() => {
     if (!note) return;
     if (note.title === content.title && note.body === content.body) return;
     const timeoutId = setTimeout(() => {
