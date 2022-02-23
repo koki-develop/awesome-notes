@@ -7,16 +7,18 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
-import React, { useCallback, useState } from 'react';
-import { LocalStorage } from '@/lib/localStorage';
+import React, { useCallback } from 'react';
 import GitHubIcon from '@/static/images/github-icon.svg';
 
 export type LayoutHeaderProps = {
   popup?: boolean;
+
+  openDrawer?: boolean;
+  onOpenDrawer: () => void;
 };
 
 const LayoutHeader: React.VFC<LayoutHeaderProps> = React.memo(props => {
-  const { popup } = props;
+  const { popup, openDrawer, onOpenDrawer } = props;
 
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -24,17 +26,9 @@ const LayoutHeader: React.VFC<LayoutHeaderProps> = React.memo(props => {
   const headerHeight = 64;
   const drawerWidth = isSmDown || popup ? 200 : 240;
 
-  const [openDrawer, setOpenDrawer] = useState<boolean>(
-    LocalStorage.getOpenDrawer({ popup }),
-  );
-
   const handleClickOpenApp = useCallback(async () => {
     const url = chrome.runtime.getURL('app.html');
     chrome.tabs.create({ url });
-  }, []);
-
-  const handleClickMenu = useCallback(() => {
-    setOpenDrawer(true);
   }, []);
 
   return (
@@ -60,7 +54,7 @@ const LayoutHeader: React.VFC<LayoutHeaderProps> = React.memo(props => {
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
           {!openDrawer && (
-            <IconButton color='secondary' onClick={handleClickMenu}>
+            <IconButton color='secondary' onClick={onOpenDrawer}>
               <MenuIcon />
             </IconButton>
           )}

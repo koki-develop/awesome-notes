@@ -38,6 +38,10 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
     LocalStorage.getOpenDrawer({ popup }),
   );
 
+  const handleOpenDrawer = useCallback(() => {
+    setOpenDrawer(true);
+  }, []);
+
   const handleCloseDrawer = useCallback(() => {
     setOpenDrawer(false);
   }, []);
@@ -50,7 +54,11 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
     <Box sx={{ height: '100vh', minWidth: 750, minHeight: 500 }}>
       <CssBaseline />
 
-      <LayoutHeader popup={popup} />
+      <LayoutHeader
+        popup={popup}
+        openDrawer={openDrawer}
+        onOpenDrawer={handleOpenDrawer}
+      />
 
       {/* drawer */}
       <NoteListDrawer
