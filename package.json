@@ -5,7 +5,7 @@
     "dev": "vite build --watch",
     "build": "vite build",
     "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
-    "fmt": "prettier --write . && yarn run lint --fix"
+    "fmt": "yarn run lint --fix && prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
