@@ -6,7 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useCallback } from 'react';
 import NoteListItem from '@/components/model/note/NoteListItem';
-import { useNotes , useCreateNote, useSelectNote } from '@/hooks/noteHooks';
+import { useNotes, useCreateNote, useSelectNote } from '@/hooks/noteHooks';
 
 export type NoteListProps = ListProps;
 
