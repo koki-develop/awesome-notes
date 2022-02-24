@@ -12,36 +12,35 @@ export type NoteEditorBubbleMenuButtonProps = Omit<
   mark: MarkName;
 };
 
-const NoteEditorBubbleMenuButton: React.VFC<NoteEditorBubbleMenuButtonProps> =
-  React.memo(props => {
-    const { editor, mark, ...iconButtonProps } = props;
+const NoteEditorBubbleMenuButton: React.VFC<
+  NoteEditorBubbleMenuButtonProps
+> = props => {
+  const { editor, mark, ...iconButtonProps } = props;
 
-    const handleClick = useCallback(() => {
-      if (mark === 'code') {
-        editor.chain().focus().toggleMark(mark).run();
-      } else {
-        editor.chain().focus().unsetCode().toggleMark(mark).run();
-      }
-    }, [editor, mark]);
+  const handleClick = useCallback(() => {
+    if (mark === 'code') {
+      editor.chain().focus().toggleMark(mark).run();
+    } else {
+      editor.chain().focus().unsetCode().toggleMark(mark).run();
+    }
+  }, [editor, mark]);
 
-    return (
-      <IconButton
-        {...iconButtonProps}
-        disableRipple
-        size='small'
-        onClick={handleClick}
-        sx={{
-          backgroundColor: editor.isActive(mark) ? 'divider' : undefined,
-          borderRadius: 0,
-          '&:not(:last-child)': {
-            mr: 1,
-          },
-          ...iconButtonProps.sx,
-        }}
-      />
-    );
-  });
-
-NoteEditorBubbleMenuButton.displayName = 'NoteEditorBubbleMenuButton';
+  return (
+    <IconButton
+      {...iconButtonProps}
+      disableRipple
+      size='small'
+      onClick={handleClick}
+      sx={{
+        backgroundColor: editor.isActive(mark) ? 'divider' : undefined,
+        borderRadius: 0,
+        '&:not(:last-child)': {
+          mr: 1,
+        },
+        ...iconButtonProps.sx,
+      }}
+    />
+  );
+};
 
 export default NoteEditorBubbleMenuButton;
