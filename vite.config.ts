@@ -3,7 +3,10 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
-const title = process.env.NODE_ENV === 'production' ? 'Awesome Notes' : 'Awesome Notes (development)';
+const title =
+  process.env.NODE_ENV === 'production'
+    ? 'Awesome Notes'
+    : 'Awesome Notes (development)';
 
 export default defineConfig({
   resolve: {
@@ -23,8 +26,8 @@ export default defineConfig({
           injectOptions: {
             data: {
               title,
-            }
-          }
+            },
+          },
         },
         {
           entry: 'src/popup.tsx',
