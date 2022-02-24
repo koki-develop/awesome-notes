@@ -96,8 +96,20 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       <NoteListDrawer
         open={openDrawer}
         headerHeight={headerHeight}
-        width={drawerWidth}
         onClose={handleCloseDrawer}
+        drawerProps={{
+          sx: { width: drawerWidth },
+        }}
+        drawerHeaderProps={{
+          sx: { height: headerHeight },
+        }}
+        listProps={{
+          sx: {
+            width: drawerWidth,
+            height: `calc(100vh - ${headerHeight}px)`,
+            overflowY: 'auto',
+          },
+        }}
       />
 
       <Box

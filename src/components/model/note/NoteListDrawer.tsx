@@ -1,52 +1,47 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Box, { BoxProps } from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
+import Drawer, { DrawerProps } from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
-import NoteList from '@/components/model/note/NoteList';
-
-const NoteListDrawerHeader = styled('div')(({ theme }) => ({
-  alignItems: 'center',
-  display: 'flex',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
+import NoteList, { NoteListProps } from '@/components/model/note/NoteList';
 
 export type NoteListDrawerProps = {
   open: boolean;
   headerHeight: number;
-  width: number;
 
   onClose: () => void;
+
+  drawerProps?: DrawerProps;
+  drawerHeaderProps?: BoxProps;
+  listProps?: NoteListProps;
 };
 
 const NoteListDrawer: React.VFC<NoteListDrawerProps> = React.memo(props => {
-  const { open, headerHeight, width, onClose } = props;
+  const { open, onClose, drawerProps, drawerHeaderProps, listProps } = props;
+
+  const theme = useTheme();
 
   return (
-    <Drawer
-      anchor='left'
-      variant='persistent'
-      open={open}
-      sx={{
-        width,
-      }}
-    >
-      <NoteListDrawerHeader sx={{ height: headerHeight }}>
+    <Drawer {...drawerProps} anchor='left' variant='persistent' open={open}>
+      <Box
+        {...drawerHeaderProps}
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          padding: theme => theme.spacing(0, 1),
+          ...theme.mixins.toolbar,
+          justifyContent: 'flex-end',
+          ...drawerHeaderProps?.sx,
+        }}
+      >
         <IconButton onClick={onClose}>
           <ChevronLeftIcon />
         </IconButton>
-      </NoteListDrawerHeader>
+      </Box>
       <Divider />
-      <NoteList
-        sx={{
-          width,
-          height: `calc(100vh - ${headerHeight}px)`,
-          overflowY: 'auto',
-        }}
-      />
+      <NoteList {...listProps} />
     </Drawer>
   );
 });
