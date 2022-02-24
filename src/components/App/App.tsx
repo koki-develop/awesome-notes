@@ -29,7 +29,7 @@ const AppContent: React.VFC<AppProps> = React.memo(props => {
 
   return (
     <Layout popup={popup}>
-      <Box display={note ? undefined : 'none'} sx={{ height: '100%' }}>
+      <Box display={note ? undefined : 'none'}>
         <NoteEditor note={note} />
       </Box>
       {!note && (

@@ -51,7 +51,15 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
   }, [openDrawer, popup]);
 
   return (
-    <Box sx={{ height: '100vh', minWidth: 750, minHeight: 500 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        minWidth: 750,
+        minHeight: 500,
+      }}
+    >
       <CssBaseline />
 
       <LayoutHeader
@@ -72,7 +80,8 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       <Box
         component='main'
         sx={theme => ({
-          height: `calc(100% - ${headerHeight}px)`,
+          flexGrow: 1,
+          overflowY: 'auto',
           transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
