@@ -16,31 +16,6 @@ export type NoteEditorBubbleMenuProps = {
 const NoteEditorBubbleMenu: React.VFC<NoteEditorBubbleMenuProps> = props => {
   const { editor } = props;
 
-  const handleClickBold = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().unsetCode().toggleBold().run();
-  }, [editor]);
-
-  const handleClickItalic = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().unsetCode().toggleItalic().run();
-  }, [editor]);
-
-  const handleClickUnderline = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().unsetCode().toggleUnderline().run();
-  }, [editor]);
-
-  const handleClickStrikethrough = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().unsetCode().toggleStrike().run();
-  }, [editor]);
-
-  const handleClickCode = useCallback(() => {
-    if (!editor) return;
-    editor.chain().focus().toggleCode().run();
-  }, [editor]);
-
   const shouldShowMenu = useCallback((props: { state: EditorState }) => {
     const { state } = props;
     if (state.selection.empty) return false;
@@ -58,34 +33,19 @@ const NoteEditorBubbleMenu: React.VFC<NoteEditorBubbleMenuProps> = props => {
   return (
     <BubbleMenu editor={editor} shouldShow={shouldShowMenu}>
       <Paper sx={{ p: 1 }}>
-        <NoteEditorBubbleMenuButton
-          active={editor.isActive('bold')}
-          onClick={handleClickBold}
-        >
+        <NoteEditorBubbleMenuButton editor={editor} mark={'bold'}>
           <BoldIcon />
         </NoteEditorBubbleMenuButton>
-        <NoteEditorBubbleMenuButton
-          active={editor.isActive('italic')}
-          onClick={handleClickItalic}
-        >
+        <NoteEditorBubbleMenuButton editor={editor} mark={'italic'}>
           <ItalicIcon />
         </NoteEditorBubbleMenuButton>
-        <NoteEditorBubbleMenuButton
-          active={editor.isActive('underline')}
-          onClick={handleClickUnderline}
-        >
+        <NoteEditorBubbleMenuButton editor={editor} mark={'underline'}>
           <UnderlineIcon />
         </NoteEditorBubbleMenuButton>
-        <NoteEditorBubbleMenuButton
-          active={editor.isActive('strike')}
-          onClick={handleClickStrikethrough}
-        >
+        <NoteEditorBubbleMenuButton editor={editor} mark={'strike'}>
           <StrikethroughIcon />
         </NoteEditorBubbleMenuButton>
-        <NoteEditorBubbleMenuButton
-          active={editor.isActive('code')}
-          onClick={handleClickCode}
-        >
+        <NoteEditorBubbleMenuButton editor={editor} mark={'code'}>
           <CodeIcon />
         </NoteEditorBubbleMenuButton>
       </Paper>
