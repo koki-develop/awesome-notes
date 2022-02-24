@@ -2,7 +2,7 @@
   "name": "awesome-notes",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "vite build --mode development --watch",
     "build": "vite build",
     "lint": "eslint --max-warnings 0 --ext .js,.ts,.tsx .",
     "fmt": "yarn run lint --fix && prettier --write ."
