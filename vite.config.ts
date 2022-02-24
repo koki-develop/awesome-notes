@@ -16,13 +16,13 @@ export default defineConfig({
       pages: [
         {
           entry: 'src/app.tsx',
+          template: 'src/templates/app.html',
           filename: 'app.html',
-          template: 'app.html',
         },
         {
           entry: 'src/popup.tsx',
+          template: 'src/templates/popup.html',
           filename: 'popup.html',
-          template: 'popup.html',
         },
       ],
     }),
