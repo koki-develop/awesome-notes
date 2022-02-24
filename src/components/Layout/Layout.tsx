@@ -1,8 +1,8 @@
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, SxProps, Theme } from '@mui/material';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import NoteListDrawer from '@/components/model/note/NoteListDrawer';
 import { LocalStorage } from '@/lib/localStorage';
 import LayoutHeader from './LayoutHeader';
@@ -46,6 +46,25 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
     setOpenDrawer(false);
   }, []);
 
+  const drawerStyles: SxProps<Theme> = useMemo(() => {
+    return {
+      transition: theme =>
+        theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+      ...(openDrawer && {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme =>
+          theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+      }),
+    };
+  }, [drawerWidth, openDrawer]);
+
   useEffect(() => {
     LocalStorage.setOpenDrawer(openDrawer, { popup });
   }, [openDrawer, popup]);
@@ -56,8 +75,10 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
         display: 'flex',
         flexDirection: 'column',
         height: '100vh',
-        minWidth: 750,
-        minHeight: 500,
+        ...(popup && {
+          minWidth: 750,
+          minHeight: 500,
+        }),
       }}
     >
       <CssBaseline />
@@ -66,9 +87,12 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
         popup={popup}
         openDrawer={openDrawer}
         onOpenDrawer={handleOpenDrawer}
+        sx={{
+          height: headerHeight,
+          ...drawerStyles,
+        }}
       />
 
-      {/* drawer */}
       <NoteListDrawer
         open={openDrawer}
         headerHeight={headerHeight}
@@ -76,26 +100,14 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
         onClose={handleCloseDrawer}
       />
 
-      {/* main content */}
       <Box
         component='main'
-        sx={theme => ({
+        sx={{
           flexGrow: 1,
           overflowY: 'auto',
-          transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
           wordBreak: 'break-all',
-          ...(openDrawer && {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: `${drawerWidth}px`,
-            transition: theme.transitions.create(['margin', 'width'], {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          }),
-        })}
+          ...drawerStyles,
+        }}
       >
         {children}
       </Box>
