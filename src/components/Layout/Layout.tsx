@@ -115,6 +115,8 @@ const LayoutContent: React.VFC<LayoutProps> = React.memo(props => {
       <Box
         component='main'
         sx={{
+          display: 'flex',
+          flexDirection: 'column',
           flexGrow: 1,
           overflowY: 'auto',
           wordBreak: 'break-all',
