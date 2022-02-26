@@ -1,7 +1,11 @@
 .note-editor {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   overflow-y: auto;
 
   .ProseMirror {
+    flex-grow: 1;
     outline: none;
     padding: 12px;
     padding-bottom: calc(100vh - 150px);
