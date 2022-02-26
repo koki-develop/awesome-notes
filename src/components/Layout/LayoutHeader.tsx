@@ -1,12 +1,11 @@
+import GitHubIcon from '@mui/icons-material/GitHub';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar, { AppBarProps } from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import React, { useCallback } from 'react';
-import GitHubIcon from '@/static/images/github-icon.svg';
 
 export type LayoutHeaderProps = AppBarProps & {
   popup?: boolean;
@@ -58,7 +57,7 @@ const LayoutHeader: React.VFC<LayoutHeaderProps> = React.memo(props => {
           target='_blank'
           rel='noreferrer noopener'
         >
-          <Avatar src={GitHubIcon} sx={{ height: 32, width: 32 }} />
+          <GitHubIcon fontSize='large' htmlColor='white' />
         </IconButton>
       </Toolbar>
     </AppBar>
