@@ -747,14 +747,14 @@
     "@tiptap/extension-strike" "^2.0.0-beta.29"
     "@tiptap/extension-text" "^2.0.0-beta.17"
 
-"@tiptap/suggestion@2.0.0-beta.90":
-  version "2.0.0-beta.90"
-  resolved "https://registry.yarnpkg.com/@tiptap/suggestion/-/suggestion-2.0.0-beta.90.tgz#16b0cf8732c08ac57d5e7f6cc98b70b0a581bdc6"
-  integrity sha512-L5PPYRatY/75uJJRQx2o/Ce+gzcOkmd81TwLjio9sADV3bRf4DO4WYcQy0AtGe6uNSz78DTL0SUVw4204VjoBw==
+"@tiptap/suggestion@2.0.0-beta.97":
+  version "2.0.0-beta.97"
+  resolved "https://registry.yarnpkg.com/@tiptap/suggestion/-/suggestion-2.0.0-beta.97.tgz#2e3dc20deebc2c37c5d39c848e61e9c837e7188a"
+  integrity sha512-3NWG+HE7v2w97Ek6z1tUosoZKpCDH+oAtIG9XoNkK1PmlaVV/H4d6HT9uPX+Y6SeN7fSAqlcXFUGLXcDi9d+Zw==
   dependencies:
-    prosemirror-model "^1.16.1"
-    prosemirror-state "^1.3.4"
-    prosemirror-view "^1.23.6"
+    prosemirror-model "1.18.1"
+    prosemirror-state "1.4.1"
+    prosemirror-view "1.26.2"
 
 "@types/chrome@0.0.174":
   version "0.0.174"
@@ -2696,14 +2696,6 @@ prosemirror-schema-list@1.2.0:
   dependencies:
     prosemirror-model "^1.0.0"
     prosemirror-state "^1.0.0"
-    prosemirror-transform "^1.0.0"
-
-prosemirror-state@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/prosemirror-state/-/prosemirror-state-1.4.1.tgz#f6e26c7b6a7e11206176689eb6ebbf91870953e1"
-  integrity sha512-U/LBDW2gNmVa07sz/D229XigSdDQ5CLFwVB1Vb32MJbAHHhWe/6pOc721faI17tqw4pZ49i1xfY/jEZ9tbIhPg==
-  dependencies:
-    prosemirror-model "^1.0.0"
     prosemirror-transform "^1.0.0"
 
 prosemirror-state@1.4.1:
